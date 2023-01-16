@@ -10,7 +10,6 @@ typedef struct {
 	ssize_t input_length;
 } InputBuffer;
 
-
 typedef enum {
 	META_COMMAND_SUCCESS,
 	META_COMMAND_UNRECOGNIZED_COMMAND
@@ -18,12 +17,9 @@ typedef enum {
 
 typedef enum { PREPARE_SUCCESS, PREPARE_UNRECOGNIZED_STATEMENT} PrepareResult;
 typedef enum { STATEMENT_INSERT, STATEMENT_SELECT} StatementType;
-
 typedef struct {
 	StatementType type;
 } Statement;
-
-
 
 InputBuffer* new_input_buffer() {
 	InputBuffer* input_buffer = (InputBuffer*)malloc(sizeof(InputBuffer));
@@ -60,7 +56,6 @@ void read_input(InputBuffer* input_buffer) {
 		printf("Error reading input\n");
 		exit(EXIT_FAILURE);
 	}
-
 	//ignore trailing newline
 	input_buffer->input_length = bytes_read - 1;
 	input_buffer->buffer[bytes_read - 1] = 0;
@@ -91,7 +86,6 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
 		statement->type = STATEMENT_SELECT;
 		return PREPARE_SUCCESS;
 	}
-
 	return PREPARE_UNRECOGNIZED_STATEMENT;
 }
 
