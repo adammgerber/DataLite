@@ -91,6 +91,68 @@ typedef struct {
 	bool end_of_table; // Indicates a position one after the last element. This might be somewhere to enter a row
 } Cursor;
 
+// enum to keep track of node type (internal vs leaf)
+/* 
+	- Each node will correspond to one page
+	- Internal nodes will point to their children by storing the page number that stores the child
+	- Btree asks the pager for a page number and gets back a pointer to page cache
+	- Pages are stored in the database file one after the other in order of page number
+*/
+typedef enum { NODE_INTERNAL, NODE_LEAF } NodeType;
+
+// Node header layout
+/*
+	- Nodes need to store some metadata in a header at beginning of page
+	- Every node will store what type of node it is, whether it is root, and a pointer to its parent
+*/
+
+const uint32_t NODE_TYPE_SIZE = sizeof(uint8_t);
+const uint32_t NODE_TYPE_OFFSET = 0;
+const uint32_t IS_ROOT_SIZE = sizeof(uint8_t);
+const uint32_t IS_ROOT_OFFSET = NODE_TYPE_SIZE;
+const uint32_t PARENT_POINTER_SIZE = sizeof(uint32_t);
+const uint32_t PARENT_POINTER_OFFSET = IS_ROOT_OFFSET + IS_ROOT_SIZE;
+const uint8_t COMMON_NODE_HEADER_SIZE = NODE_TYPE_SIZE + IS_ROOT_SIZE + PARENT_POINTER_SIZE;
+
+// Leaf nodes need to store how many cells they contain. A cell being a key/value pair
+// Leaf Node Header Layout:
+const uint32_t LEAF_NODE_NUM_CELLS_SIZE = sizeof(uint32_t);
+const uint32_t LEAF_NODE_NUM_CELLS_OFFSET = COMMON_NODE_HEADER_SIZE;
+const uint32_t LEAF_NODE_HEADER_SIZE = COMMON_NODE_HEADER_SIZE + LEAF_NODE_NUM_CELLS_SIZE;
+
+
+// Body of leaf node is an array of cells. Each cell is a key followed by value
+// Leaf Node Body Layout:
+const uint32_t LEAF_NODE_KEY_SIZE = sizeof(uint32_t);
+const uint32_t LEAF_NODE_KEY_OFFSET = 0;
+const uint32_t LEAF_NODE_VALUE_SIZE = ROW_SIZE;
+const uint32_t LEAF_NODE_VALUE_OFFSET = LEAF_NODE_KEY_OFFSET + LEAF_NODE_KEY_SIZE;
+const uint32_t LEAF_NODE_CELL_SIZE = LEAF_NODE_KEY_SIZE + LEAF_NODE_VALUE_SIZE;
+const uint32_t LEAF_NODE_SPACE_FOR_CELLS = PAGE_SIZE - LEAF_NODE_HEADER_SIZE;
+const uint32_t LEAF_NODE_MAX_CELLS = LEAF_NODE_SPACE_FOR_CELLS / LEAF_NODE_CELL_SIZE;
+
+// Code for accessing keys, values, metadata
+
+uint32_t* leaf_node_num_cells(void* node) {
+	return node + LEAF_NODE_NUM_CELLS_OFFSET;
+}
+
+void* leaf_node_cell(void* node, uint32_t cell_num) {
+	return node + LEAF_NODE_HEADER_SIZE + cell_num * LEAF_NODE_CELL_SIZE;
+}
+
+uint32_t* leaf_node_key(void* node, uint32_t cell_num) {
+	return leaf_node_cell(node, cell_num);
+}
+
+void* leaf_node_value(void* node, uint32_t cell_num) {
+	return leaf_node_cell(node, cell_num) + LEAF_NODE_KEY_SIZE;
+}
+
+void initialize_leaf_node(void* node) { *leaf_node_num_cells(node) = 0; }
+
+
+
 
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
