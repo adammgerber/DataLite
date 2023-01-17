@@ -30,7 +30,6 @@ typedef enum {
 
 typedef enum { STATEMENT_INSERT, STATEMENT_SELECT} StatementType;
 
-
 #define COLUMN_USERNAME_SIZE 32
 #define COLUMN_EMAIL_SIZE 255
 typedef struct{
@@ -82,7 +81,6 @@ typedef struct {
 	Pager* pager;
 	uint32_t root_page_num;
 } Table;
-
 
 typedef struct {
 	Table* table;
@@ -152,14 +150,9 @@ void* leaf_node_value(void* node, uint32_t cell_num) {
 
 void initialize_leaf_node(void* node) { *leaf_node_num_cells(node) = 0; }
 
-
-
-
 void print_row(Row* row) {
 	printf("(%d, %s, %s)\n", row->id, row->username, row->email);
 }
-
-
 
 void* get_page(Pager* pager, uint32_t page_num) {
 	if (page_num > TABLE_MAX_PAGES) {
@@ -364,8 +357,6 @@ MetaCommandResult do_meta_command(InputBuffer* input_buffer, Table* table){
 	}
 }
 
-
-
 PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement) {
 	statement->type = STATEMENT_INSERT;
 
@@ -488,8 +479,6 @@ Table* db_open(const char* filename){
 
 	return table;
 }
-
-
 
 int main(int argc, char* argv[]){
 	if(argc > 2) {
