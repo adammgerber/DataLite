@@ -1,3 +1,3 @@
 default:
-	gcc -o db db.c
-	./db mydb.db
+	gcc -o final_db final_db.c
+	./final_db mydb.db
