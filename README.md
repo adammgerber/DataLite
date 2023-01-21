@@ -5,9 +5,9 @@ In order to create a clone of SQLite, we need to understand the internals of SQL
 
 ## How does SQLite work?
 - SQL statements are compiled into bytecode which is then run in a VM
-- interfaces (such as sqlite3_prepare_v2()) act as a compiler for converting SQL text into bytecode
-- Objects (such as sqlite3_stmt) act as a container for a single bytecode program that implements a single SQL statement.
-- The interface (sqlite3_step()) then psses a bytecode program into the VM and runs the program until: 
+- interfaces (such as `sqlite3_prepare_v2()`) act as a compiler for converting SQL text into bytecode
+- Objects (such as `sqlite3_stmt`) act as a container for a single bytecode program that implements a single SQL statement.
+- The interface (`sqlite3_step()`) then psses a bytecode program into the VM and runs the program until: 
 
   a - the program completes 
   
