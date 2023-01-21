@@ -44,13 +44,15 @@ void close_input_buffer(InputBuffer* input_buffer) {
 
 int main(int argc, char* argv[]) {
 	InputBuffer* input_buffer = new_input_buffer();
-	prompt_user();
-	read_input(input_buffer);
+	while(true) {
+		prompt_user();
+		read_input(input_buffer);
 
-	if(strcmp(input_buffer->buffer, ".exit") == 0) {
-		close_input_buffer(input_buffer);
-		exit(EXIT_SUCCESS);
-	} else {
-		printf("Unrecognized command %s", input_buffer->buffer);
+		if(strcmp(input_buffer->buffer, ".exit") == 0) {
+			close_input_buffer(input_buffer);
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Unrecognized command %s", input_buffer->buffer);
+		}
 	}
 }
