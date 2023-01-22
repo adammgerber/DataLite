@@ -162,7 +162,8 @@ true evaluates to 1
 false evaluates to 0
 
 ## Stdlib.h
-**macros:**
+**macros** 
+
 NULL = value of null pointer constant 
 
 EXIT_SUCCESS = value for exit function to return in case of success 
