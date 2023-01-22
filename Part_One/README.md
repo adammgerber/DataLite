@@ -143,7 +143,7 @@ a bunch of concepts used in this part of the program
 - returns >0 if the first non-matching character is greater (in ASCII) than the second string
 - returns <0 if first non-matching character is less (in ASCII) than the second string
 
-### Review of Standard Libraries used in this part
+### Standard Libraries 
 
 ## Stdio.h
 **variables** 
