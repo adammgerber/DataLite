@@ -1,7 +1,7 @@
 # DataLite
 Simple database written in C, based off of SQLite
 
-In order to create a clone of SQLite, we need to understand the internals of SQLite itself:
+In order to create a database similar SQLite, we need to understand the internals of SQLite itself:
 
 ## How does SQLite work?
 - SQL statements are compiled into bytecode which is then run in a VM
