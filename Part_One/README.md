@@ -76,8 +76,7 @@ void read_input(InputBuffer* input_buffer) {
 	input_buffer->buffer[bytes_read - 1] = 0;
 }
 ```
-I found this part interesting, mostly because I'm familiar of getline from Java, but have never used it
-in C, and wasn't aware of what goes on under the hood. That being said, let's explore getline() and see
+To understand this function, let's first explore getline() and see
 how its being used in this program
 
 From linux manpages: https://man7.org/linux/man-pages/man3/getline.3.html
