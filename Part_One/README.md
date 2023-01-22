@@ -146,10 +146,14 @@ a bunch of concepts used in this part of the program
 ### Review of Standard Libraries used in this part
 
 ## Stdio.h
-**variables**
-size_t = unsigned int, result of sizeof()
-FILE = obect type suitable for storing information for a file stream
-fpos_t = object type suitable for storing any position in a file
+**variables** 
+
+size_t = unsigned int, result of sizeof() 
+
+FILE = obect type suitable for storing information for a file stream 
+
+fpos_t = object type suitable for storing any position in a file 
+
 
 ## Stdbool.h
 simpy allows us to use bool as a Boolean data type
@@ -159,10 +163,15 @@ false evaluates to 0
 
 ## Stdlib.h
 **macros:**
-NULL = value of null pointer constant
-EXIT_SUCCESS = value for exit function to return in case of success
-EXIT_FAILURE = value for exit function to return in case of failure
-**functions:**
-free() = Reallocates memory previously allocated by malloc, calloc, or ralloc
+NULL = value of null pointer constant 
+
+EXIT_SUCCESS = value for exit function to return in case of success 
+
+EXIT_FAILURE = value for exit function to return in case of failure 
+
+**functions:** 
+
+free() = Reallocates memory previously allocated by malloc, calloc, or ralloc 
+
 exit() = causes program to terminate normally
 
